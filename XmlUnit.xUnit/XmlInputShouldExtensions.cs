@@ -4,6 +4,16 @@
 
     public static class XmlInputShouldExtensions
     {
+        public static void ShouldBeXmlIdenticalTo(this XmlInput actual, XmlInput expected)
+        {
+            XmlAssertion.AssertXmlIdentical(actual, expected);
+        }
+
+        public static void ShouldBeXmlEqualTo(this XmlInput actual, XmlInput expected)
+        {
+            XmlAssertion.AssertXmlEquals(actual, expected);
+        }
+        
         public static XmlInputAssertionWrapper XsltTransformation(this XmlInput original, XmlInput xslt)
         {
             return new XmlInputAssertionWrapper(original, xslt);

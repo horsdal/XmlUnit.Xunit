@@ -26,6 +26,70 @@ namespace XmlUnit.XunitTests
         }
 
         [Fact]
+        public void AssertStringEqualAndIdenticalToSelfWithXmlInput()
+        {
+            var control = new XmlInput("<assert>true</assert>");
+            var test = new XmlInput("<assert>true</assert>");
+            test.ShouldBeXmlIdenticalTo(control);
+            test.ShouldBeXmlEqualTo(control);
+        }
+
+        [Fact]
+        public void AssertDifferentStringEqualAndIdenticalTrowsWithXmlInput()
+        {
+            var control = new XmlInput("<assert>true</assert>");
+            var test = new XmlInput("<assert>false</assert>");
+            Assert.Throws<TrueException>(() => test.ShouldBeXmlIdenticalTo(control));
+            Assert.Throws<TrueException>(() => test.ShouldBeXmlEqualTo(control));
+        }
+
+        [Fact]
+        public void AssertStringIdenticalToSelfWithTextReaders()
+        {
+            using (StreamReader reader = GetStreamReader(ValidatorTests.VALID_FILE))
+            {
+                reader.ShouldContainXmlIdenticalTo(reader);
+            }
+        }
+
+        [Fact]
+        public void AssertStringEqualToSelfWithTextReaders()
+        {
+            using (StreamReader reader = GetStreamReader(ValidatorTests.VALID_FILE))
+            {
+                reader.ShouldContainXmlEqualTo(reader);
+            }
+        }
+
+        [Fact]
+        public void AssertDifferentStringIdenticalWithTextReadersThrows()
+        {
+            using (StreamReader test = GetStreamReader(ValidatorTests.VALID_FILE))
+            {
+                using (StreamReader control = GetStreamReader(".\\..\\..\\etc\\test.blame.html"))
+                {
+                    Assert.Throws<TrueException>(() =>
+                        test.ShouldContainXmlIdenticalTo(control)
+                        );
+                }
+            }
+        }
+
+        [Fact]
+        public void AssertDifferentStringEqualWithTextReadersThrows()
+        {
+            using (StreamReader test = GetStreamReader(ValidatorTests.VALID_FILE))
+            {
+                using (StreamReader control = GetStreamReader(".\\..\\..\\etc\\test.blame.html"))
+                {
+                    Assert.Throws<TrueException>(() => 
+                        test.ShouldContainXmlEqualTo(control)
+                        );
+                }
+            }
+        }
+
+        [Fact]
         public void AssertDifferentStringsNotEqualNorIdentical()
         {
             string control = "<assert>true</assert>";

@@ -9,6 +9,16 @@
         {
             return new TextReaderAssertionWrapper(reader, baseUri);
         }
+
+        public static void ShouldContainXmlIdenticalTo(this TextReader actual, TextReader expected)
+        {
+            XmlAssertion.AssertXmlIdentical(actual, expected);
+        }
+
+        public static void ShouldContainXmlEqualTo(this TextReader actual, TextReader expected)
+        {
+            XmlAssertion.AssertXmlEquals(actual, expected);
+        }
     }
 
     public class TextReaderAssertionWrapper
