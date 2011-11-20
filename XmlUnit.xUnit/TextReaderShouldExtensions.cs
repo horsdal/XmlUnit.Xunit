@@ -32,6 +32,10 @@
             XmlAssertion.AssertXmlNotEquals(diff);
         }
 
+        public static void ShouldContainValidXml(this TextReader actual)
+        {
+            XmlAssertion.AssertXmlValid(actual);
+        }
     }
 
     public class TextReaderAssertionWrapper

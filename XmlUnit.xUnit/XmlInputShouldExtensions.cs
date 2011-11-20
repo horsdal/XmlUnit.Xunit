@@ -30,6 +30,11 @@
         {
             return new XmlInputAssertionWrapper(original, xslt);
         }
+
+        public static void ShouldBeValidXml(this XmlInput actual)
+        {
+            XmlAssertion.AssertXmlValid(actual);
+        }
     }
 
     public class XmlInputAssertionWrapper

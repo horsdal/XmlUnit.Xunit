@@ -1,5 +1,7 @@
 namespace XmlUnit.XunitTests
 {
+    using System.Xml;
+
     using global::Xunit;
     using global::Xunit.Sdk;
     using XmlUnit.Xunit;
@@ -141,6 +143,48 @@ namespace XmlUnit.XunitTests
         }
 
         [Fact]
+        public void AssertXmlValidTrueForValidString()
+        {
+            "<assert>false</assert>".ShouldBeValidXml();
+        }
+
+        [Fact]
+        public void AssertXmlValidForInvalidStringThrows()
+        {
+            Assert.Throws<XmlException>(() =>
+                "<assert>false".ShouldBeValidXml()
+                );
+        }
+
+        [Fact]
+        public void AssertXmlValidTrueForValidXmlInput()
+        {
+           new XmlInput("<assert>false</assert>").ShouldBeValidXml();
+        }
+
+        [Fact]
+        public void AssertXmlValidForInvalidXmlInputThrows()
+        {
+            Assert.Throws<XmlException>(() =>
+                new XmlInput("<assert>false").ShouldBeValidXml()
+                );
+        }
+        
+        [Fact]
+        public void AssertXmlValidWithBaseUriTrueForValidString()
+        {
+            "<assert>false</assert>".WithBaseURI("/").ShouldBeValidXml();
+        }
+
+        [Fact]
+        public void AssertXmlValidWithBaseUriForInvalidStringThrows()
+        {
+            Assert.Throws<XmlException>(() =>
+                "<assert>false".WithBaseURI("/").ShouldBeValidXml()
+                );
+        }
+
+        [Fact]
         public void AssertXmlValidTrueForValidFile()
         {
             using (StreamReader reader = GetStreamReader(ValidatorTests.VALID_FILE))
@@ -157,6 +201,15 @@ namespace XmlUnit.XunitTests
                 Assert.Throws<TrueException>(
                     () => reader.WithBaseURI(".\\..\\..\\").ShouldContainValidXml()
                     );
+            }
+        }
+
+        [Fact]
+        public void AssertXmlValidForFileNoBaseUri()
+        {
+            using (StreamReader control = GetStreamReader(".\\..\\..\\etc\\test.blame.html"))
+            {
+                control.ShouldContainValidXml();
             }
         }
 
