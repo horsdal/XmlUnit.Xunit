@@ -19,6 +19,19 @@
         {
             XmlAssertion.AssertXmlEquals(actual, expected);
         }
+
+        public static void ShouldNotContainXmlIdenticalTo(this TextReader actual, TextReader expected)
+        {
+            var diff = new XmlDiff(expected, actual);
+            XmlAssertion.AssertXmlNotIdentical(diff);
+        }
+
+        public static void ShouldNotContainXmlEqualTo(this TextReader actual, TextReader expected)
+        {
+            var diff = new XmlDiff(expected, actual);
+            XmlAssertion.AssertXmlNotEquals(diff);
+        }
+
     }
 
     public class TextReaderAssertionWrapper

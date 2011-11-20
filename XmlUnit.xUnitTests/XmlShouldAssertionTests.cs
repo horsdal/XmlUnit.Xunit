@@ -35,7 +35,7 @@ namespace XmlUnit.XunitTests
         }
 
         [Fact]
-        public void AssertDifferentStringEqualAndIdenticalTrowsWithXmlInput()
+        public void AssertDifferentStringEqualAndIdenticalThrowsWithXmlInput()
         {
             var control = new XmlInput("<assert>true</assert>");
             var test = new XmlInput("<assert>false</assert>");
@@ -90,6 +90,30 @@ namespace XmlUnit.XunitTests
         }
 
         [Fact]
+        public void AssertDifferentStringNotEqualWithTextReaders()
+        {
+            using (StreamReader test = GetStreamReader(ValidatorTests.VALID_FILE))
+            {
+                using (StreamReader control = GetStreamReader(".\\..\\..\\etc\\test.blame.html"))
+                {
+                    test.ShouldNotContainXmlEqualTo(control);
+                }
+            }
+        }
+
+        [Fact]
+        public void AssertDifferentStringNotIdenticalWithTextReaders()
+        {
+            using (StreamReader test = GetStreamReader(ValidatorTests.VALID_FILE))
+            {
+                using (StreamReader control = GetStreamReader(".\\..\\..\\etc\\test.blame.html"))
+                {
+                    test.ShouldNotContainXmlIdenticalTo(control);
+                }
+            }
+        }
+
+        [Fact]
         public void AssertDifferentStringsNotEqualNorIdentical()
         {
             string control = "<assert>true</assert>";
@@ -105,6 +129,15 @@ namespace XmlUnit.XunitTests
             string test = "<assert>true</assert>";
             Assert.Throws<FalseException>(() => test.ShouldNotBeXmlIdenticalTo(control));
             Assert.Throws<FalseException>(() => test.ShouldNotBeXmlEqualTo(control));
+        }
+
+        [Fact]
+        public void AssertDifferentStringNotEqualAndIdenticalWithXmlInput()
+        {
+            var control = new XmlInput("<assert>true</assert>");
+            var test = new XmlInput("<assert>false</assert>");
+            test.ShouldNotBeXmlIdenticalTo(control);
+            test.ShouldNotBeXmlEqualTo(control);
         }
 
         [Fact]

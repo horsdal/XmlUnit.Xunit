@@ -13,7 +13,19 @@
         {
             XmlAssertion.AssertXmlEquals(actual, expected);
         }
-        
+
+        public static void ShouldNotBeXmlIdenticalTo(this XmlInput actual, XmlInput expected)
+        {
+            var diff = new XmlDiff(expected, actual);
+            XmlAssertion.AssertXmlNotIdentical(diff);
+        }
+
+        public static void ShouldNotBeXmlEqualTo(this XmlInput actual, XmlInput expected)
+        {
+            var diff = new XmlDiff(expected, actual);
+            XmlAssertion.AssertXmlNotEquals(diff);
+        }
+
         public static XmlInputAssertionWrapper XsltTransformation(this XmlInput original, XmlInput xslt)
         {
             return new XmlInputAssertionWrapper(original, xslt);
