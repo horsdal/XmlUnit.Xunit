@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/horsdal/XmlUnit.Xunit/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/horsdal/XmlUnit.Xunit</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Initial release. This a straight port of Xunit from NUnit to Xunit. Everything from XmlUnit works.</releaseNotes>
+    <copyright>Copyright 2011</copyright>
+    <tags>xunit xmlunit Xml unit-testing</tags>
+  </metadata>
+</package>

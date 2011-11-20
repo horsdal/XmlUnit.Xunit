@@ -7,12 +7,12 @@ using System.Runtime.CompilerServices;
 // change them to the information which is associated with the assembly
 // you compile.
 
-[assembly: AssemblyTitle("XmlUnit")]
-[assembly: AssemblyDescription("NUnit extension for Xml testing")]
+[assembly: AssemblyTitle("XmlUnit.Xunit")]
+[assembly: AssemblyDescription("Xunit extension for Xml testing")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("http://xmlunit.sf.net/")]
+[assembly: AssemblyCompany("Christian Horsdal")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("http://xmlunit.sf.net/")]
+[assembly: AssemblyCopyright("https://github.com/horsdal/XmlUnit.Xunit")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

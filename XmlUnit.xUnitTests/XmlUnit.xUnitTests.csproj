@@ -38,6 +38,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="XmlShouldAssertionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DiffConfigurationTests.cs" />
     <Compile Include="DifferenceTests.cs" />
