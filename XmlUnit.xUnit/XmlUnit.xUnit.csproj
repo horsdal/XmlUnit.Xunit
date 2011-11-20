@@ -45,7 +45,7 @@
     <Compile Include="DifferenceType.cs" />
     <Compile Include="DiffResult.cs" />
     <Compile Include="StringShouldExtensions.cs" />
-    <Compile Include="TextReaderShouldAssertionTest.cs" />
+    <Compile Include="TextReaderShouldExtensions.cs" />
     <Compile Include="Validator.cs" />
     <Compile Include="XmlAssertion.cs" />
     <Compile Include="XmlDiff.cs" />

@@ -3,7 +3,7 @@
     using System;
     using System.IO;
 
-    public static class TextReaderShouldAssertionTest
+    public static class TextReaderShouldExtensions
     {
         public static TextReaderAssertionWrapper WithBaseURI(this TextReader reader, string baseUri)
         {
