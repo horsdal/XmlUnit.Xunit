@@ -26,23 +26,50 @@
             XmlAssertion.AssertXmlNotEquals(diff);
         }
 
-        public static XmlInputAssertionWrapper XsltTransformation(this XmlInput original, XmlInput xslt)
+        public static XmlInputXsltAssertionWrapper XsltTransformation(this XmlInput original, XmlInput xslt)
         {
-            return new XmlInputAssertionWrapper(original, xslt);
+            return new XmlInputXsltAssertionWrapper(original, xslt);
         }
 
         public static void ShouldBeValidXml(this XmlInput actual)
         {
             XmlAssertion.AssertXmlValid(actual);
         }
+
+        public static XmlInputXPathAssertionWrapper XPath(this XmlInput original, string xPath)
+        {
+            return new XmlInputXPathAssertionWrapper(original, xPath);
+        }
     }
 
-    public class XmlInputAssertionWrapper
+    public class XmlInputXPathAssertionWrapper
+    {
+        private XmlInput original;
+        private string xPath;
+
+        public XmlInputXPathAssertionWrapper(XmlInput original, string xPath)
+        {
+            this.original = original;
+            this.xPath = xPath;
+        }
+
+        public void ShouldExist()
+        {
+            XmlAssertion.AssertXPathExists(xPath, original);
+        }
+
+        public void ShouldEvaluateTo(string expected)
+        {
+            XmlAssertion.AssertXPathEvaluatesTo(xPath, original, expected);
+        }
+    }
+
+    public class XmlInputXsltAssertionWrapper
     {
         private XmlInput original;
         private XmlInput operation;
 
-        public XmlInputAssertionWrapper(XmlInput original, XmlInput operation)
+        public XmlInputXsltAssertionWrapper(XmlInput original, XmlInput operation)
         {
             this.original = original;
             this.operation = operation;

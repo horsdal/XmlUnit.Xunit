@@ -237,6 +237,23 @@ namespace XmlUnit.XunitTests
         }
 
         [Fact]
+        public void AssertXPathExistWorksForTextReaderInput()
+        {
+            using (StreamReader reader = GetStreamReader(".\\..\\..\\etc\\test.blame.html"))
+            {
+                reader.XPath("//body").ShouldExist();
+            }
+        }
+
+        [Fact]
+        public void AssertXPathExestsWorksForXmlInput()
+        {
+            new XmlInput(MY_SOLAR_SYSTEM)
+                .XPath("//planet[@name='Earth']")
+                .ShouldExist();
+        }
+
+        [Fact]
         public void AssertXPathEvaluatesToWorksForMatchingExpression()
         {
             MY_SOLAR_SYSTEM
@@ -252,6 +269,23 @@ namespace XmlUnit.XunitTests
                     .XPath("//planet[@position='3']/@supportsLife")
                     .ShouldEvaluateTo("no")
                 );
+        }
+
+        [Fact]
+        public void AssertXPathEvaluatesToWorkWithTextReader()
+        {
+            using (StreamReader reader = GetStreamReader(".\\..\\..\\etc\\test.blame.html"))
+            {
+                reader.XPath("//title").ShouldEvaluateTo("Don't blame it on the...");
+            }            
+        }
+
+        [Fact]
+        public void AssertXPathEvaluatesToWorkswithXmlInput()
+        {
+            new XmlInput(MY_SOLAR_SYSTEM)
+                .XPath("//planet[@position='3']/@supportsLife")
+                .ShouldEvaluateTo("yes");
         }
         
         [Fact]
