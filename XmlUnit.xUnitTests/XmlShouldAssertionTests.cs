@@ -301,6 +301,33 @@ namespace XmlUnit.XunitTests
         }
 
         [Fact]
+        public void AssertXPathEvaluatesToWorksWithXPathFirst()
+        {
+            "//planet[@position='3']/@supportsLife"
+                .AppliedTo(MY_SOLAR_SYSTEM)
+                .ShouldEvaluateTo("yes");
+        }
+
+        [Fact]
+        public void AssertXPathEvaluatesToWorksWithXPathFirstWithXmlInput()
+        {
+            "//planet[@position='3']/@supportsLife"
+                .AppliedTo(new XmlInput(MY_SOLAR_SYSTEM))
+                .ShouldEvaluateTo("yes");
+        }
+
+        [Fact]
+        public void AssertXPathEvaluatesToWorksWithXPathFirstWithTextReader()
+        {
+            using (StreamReader reader = GetStreamReader(".\\..\\..\\etc\\test.blame.html"))
+            {
+                "//title"
+                    .AppliedTo(reader)
+                    .ShouldEvaluateTo("Don't blame it on the...");
+            }
+        }
+
+        [Fact]
         public void AssertXPathEvaluatesToThrowsForWrongExpectedOnMatchingExpression()
         {
             Assert.Throws<EqualException>(() =>
