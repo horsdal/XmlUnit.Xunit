@@ -246,11 +246,33 @@ namespace XmlUnit.XunitTests
         }
 
         [Fact]
-        public void AssertXPathExestsWorksForXmlInput()
+        public void AssertXPathExistsWorksForXmlInput()
         {
             new XmlInput(MY_SOLAR_SYSTEM)
                 .XPath("//planet[@name='Earth']")
                 .ShouldExist();
+        }
+
+        [Fact]
+        public void AssertXPathExistsWorksWithXpathFirstWithTextReader()
+        {
+            using (StreamReader reader = GetStreamReader(".\\..\\..\\etc\\test.blame.html"))
+            {
+                "//body".AppliedTo(reader).ShouldExist();
+            }            
+        }
+
+        [Fact]
+        public void AssertXPathExistsWorksWithXpathFirstWithXmlInput()
+        {
+            var sut = new XmlInput(MY_SOLAR_SYSTEM);
+            "//planet[@name='Earth']".AppliedTo(sut).ShouldExist();
+        }
+
+        [Fact]
+        public void AssertXPathExistsWorksWithXpathFirst()
+        {
+            "//planet[@name='Earth']".AppliedTo(MY_SOLAR_SYSTEM).ShouldExist();
         }
 
         [Fact]
@@ -259,16 +281,6 @@ namespace XmlUnit.XunitTests
             MY_SOLAR_SYSTEM
                 .XPath("//planet[@position='3']/@supportsLife")
                 .ShouldEvaluateTo("yes");
-        }
-
-        [Fact]
-        public void AssertXPathEvaluatesToThrowsForWrongExpectedOnMatchingExpression()
-        {
-            Assert.Throws<EqualException>(() =>
-                MY_SOLAR_SYSTEM
-                    .XPath("//planet[@position='3']/@supportsLife")
-                    .ShouldEvaluateTo("no")
-                );
         }
 
         [Fact]
@@ -287,7 +299,17 @@ namespace XmlUnit.XunitTests
                 .XPath("//planet[@position='3']/@supportsLife")
                 .ShouldEvaluateTo("yes");
         }
-        
+
+        [Fact]
+        public void AssertXPathEvaluatesToThrowsForWrongExpectedOnMatchingExpression()
+        {
+            Assert.Throws<EqualException>(() =>
+                MY_SOLAR_SYSTEM
+                    .XPath("//planet[@position='3']/@supportsLife")
+                    .ShouldEvaluateTo("no")
+                );
+        }
+
         [Fact]
         public void AssertXPathEvaluatesToWorksForWrongExpecteNonMatchingExpression()
         {

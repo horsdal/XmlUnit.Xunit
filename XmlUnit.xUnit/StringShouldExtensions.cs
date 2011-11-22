@@ -1,6 +1,7 @@
 ﻿namespace XmlUnit.Xunit
 {
     using System;
+    using System.IO;
 
     public static class StringShouldExtensions
     {
@@ -31,9 +32,24 @@
             XmlAssertion.AssertXmlValid(actual);
         }
 
-        public static StringAssertionWrapper XPath(this string actual, string xPath)
+        public static StringAssertionWrapper XPath(this string orignal, string xPath)
         {
-            return new StringAssertionWrapper(actual, xPath);
+            return new StringAssertionWrapper(orignal, xPath);
+        }
+
+        public static StringAssertionWrapper AppliedTo(this string xPath, string original)
+        {
+            return new StringAssertionWrapper(original, xPath);
+        }
+
+        public static XmlInputXPathAssertionWrapper AppliedTo(this string xPath, XmlInput original)
+        {
+            return new XmlInputXPathAssertionWrapper(original, xPath);
+        }
+
+        public static TextReaderXPathAssertionWrapper AppliedTo(this string xPath, TextReader original)
+        {
+            return new TextReaderXPathAssertionWrapper(original, xPath);
         }
 
         public static StringAssertionWrapper XsltTransformation(this string original, string xslt)
