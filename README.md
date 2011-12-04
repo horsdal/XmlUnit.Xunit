@@ -2,6 +2,11 @@
 
 XmlUnit.Xunit provides Xunit.NET based assertions tailored to testing XML. The project contains assertions for comparing XML, applying XPath and XSLT expression to XML under test. All assertions come in two flavors: A traditional set of static assertion methods, and a fluent "should" style assertions.
 
+## Uasge ##
+You grab the source from here, download a build from [here] (https://github.com/horsdal/XmlUnit.Xunit/downloads) or install [the NuGet package] (http://nuget.org/List/Packages/XmlUnit.Xunit).
+
+Beware that both the binary in the download tab and the NuGet package may give you assembly conflicts on Xunit.NET. To get around that you need an [assmebly rebind of Xunit.NET] (http://horsdal.blogspot.com/2011/09/tip-for-making-autofixture-and-xunitnet.html).
+
 ## Traditional Assertions ##
 The traditional assertions in XmlUnit.Xunit er all static methods on the class XmlAssertion, and are used like this:
 
