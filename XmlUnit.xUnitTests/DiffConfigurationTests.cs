@@ -12,6 +12,8 @@ namespace XmlUnit.XunitTests
         private const string xmlWithoutWhitespaceElement = "<elemA>as if<elemB/>\r\n</elemA>";
         private const string xmlWithWhitespaceElement = "<elemA>as if<elemB> </elemB></elemA>";
         private const string xmlWithoutWhitespace = "<elemA>as if<elemB/></elemA>";
+        private const string xmlIgnoringAttrbutesA = "<elem value='A'>text</elem>";
+        private const string xmlIgnoringAttrbutesB = "<elem value='B'>text</elem>";
 
         [Fact]
         public void DefaultConfiguredWithGenericDescription()
@@ -139,6 +141,22 @@ namespace XmlUnit.XunitTests
                              true, xmlUnitConfiguration);
             PerformAssertion(xmlWithoutWhitespaceElement, xmlWithWhitespaceElement,
                              true, xmlUnitConfiguration);
+        }
+
+        [Fact]
+        public void IgnoreAttributeIsFalseByDefault()
+        {
+            var xmlUnitConfiguration = new DiffConfiguration();
+            Assert.False(xmlUnitConfiguration.IgnoreAttribute);
+            
+        }
+
+        [Fact]
+        public void DiffWithIgnoringAttrbituesRetursEqualsIfHasSameNodesAndDifferentValues()
+        {
+            var xmlUnitConfiguration = new DiffConfiguration {IgnoreAttribute = true};
+            PerformAssertion(xmlIgnoringAttrbutesA, xmlIgnoringAttrbutesB,
+                            true, xmlUnitConfiguration);
         }
     }
 }
