@@ -208,51 +208,54 @@ namespace XmlUnit.Xunit
                                        XmlAttribute[] controlAttributes,
                                        XmlAttribute[] testAttributes)
         {
-            ArrayList unmatchedTestAttributes = new ArrayList();
-            unmatchedTestAttributes.AddRange(testAttributes);
-            for (int i = 0; i < controlAttributes.Length; ++i)
+            if (!_diffConfiguration.IgnoreAttribute)
             {
-                bool controlIsInNs = IsNamespaced(controlAttributes[i]);
-                string controlAttrName =
-                    GetUnNamespacedNodeName(controlAttributes[i]);
-                XmlAttribute testAttr = null;
-                if (!controlIsInNs)
+                ArrayList unmatchedTestAttributes = new ArrayList();
+                unmatchedTestAttributes.AddRange(testAttributes);
+                for (int i = 0; i < controlAttributes.Length; ++i)
                 {
-                    testAttr = FindAttributeByName(testAttributes,
-                                                   controlAttrName);
-                }
-                else
-                {
-                    testAttr = FindAttributeByNameAndNs(testAttributes,
-                                                        controlAttrName,
-                                                        controlAttributes[i]
-                                                            .NamespaceURI);
-                }
-
-                if (testAttr != null)
-                {
-                    unmatchedTestAttributes.Remove(testAttr);
-                    if (!_diffConfiguration.IgnoreAttributeOrder
-                        && testAttr != testAttributes[i])
+                    bool controlIsInNs = IsNamespaced(controlAttributes[i]);
+                    string controlAttrName =
+                        GetUnNamespacedNodeName(controlAttributes[i]);
+                    XmlAttribute testAttr = null;
+                    if (!controlIsInNs)
                     {
-                        DifferenceFound(DifferenceType.ATTR_SEQUENCE_ID,
+                        testAttr = FindAttributeByName(testAttributes,
+                                                       controlAttrName);
+                    }
+                    else
+                    {
+                        testAttr = FindAttributeByNameAndNs(testAttributes,
+                                                            controlAttrName,
+                                                            controlAttributes[i]
+                                                                .NamespaceURI);
+                    }
+
+                    if (testAttr != null)
+                    {
+                        unmatchedTestAttributes.Remove(testAttr);
+                        if (!_diffConfiguration.IgnoreAttributeOrder
+                            && testAttr != testAttributes[i])
+                        {
+                            DifferenceFound(DifferenceType.ATTR_SEQUENCE_ID,
+                                            result);
+                        }
+
+                        if (controlAttributes[i].Value != testAttr.Value)
+                        {
+                            DifferenceFound(DifferenceType.ATTR_VALUE_ID, result);
+                        }
+                    }
+                    else
+                    {
+                        DifferenceFound(DifferenceType.ATTR_NAME_NOT_FOUND_ID,
                                         result);
                     }
-
-                    if (controlAttributes[i].Value != testAttr.Value)
-                    {
-                        DifferenceFound(DifferenceType.ATTR_VALUE_ID, result);
-                    }
                 }
-                else
+                foreach (XmlAttribute a in unmatchedTestAttributes)
                 {
-                    DifferenceFound(DifferenceType.ATTR_NAME_NOT_FOUND_ID,
-                                    result);
+                    DifferenceFound(DifferenceType.ATTR_NAME_NOT_FOUND_ID, result);
                 }
-            }
-            foreach (XmlAttribute a in unmatchedTestAttributes)
-            {
-                DifferenceFound(DifferenceType.ATTR_NAME_NOT_FOUND_ID, result);
             }
         }
 
