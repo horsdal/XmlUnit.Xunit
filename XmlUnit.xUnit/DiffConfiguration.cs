@@ -8,6 +8,7 @@ namespace XmlUnit.Xunit
         public const string DEFAULT_DESCRIPTION = "XmlDiff";
         public const bool DEFAULT_USE_VALIDATING_PARSER = true;
         public const bool DEFAULT_IGNORE_ATTRIBUTE_ORDER = true;
+        public const bool DEFAULT_IGNORE_ATTRIBUTE = false;
 
         private readonly string _description;
         private readonly bool _useValidatingParser;
@@ -17,19 +18,22 @@ namespace XmlUnit.Xunit
         public DiffConfiguration(string description,
                                  bool useValidatingParser,
                                  WhitespaceHandling whitespaceHandling,
-                                 bool ignoreAttributeOrder)
+                                 bool ignoreAttributeOrder,
+                                 bool ignoreAttribute)
         {
             _description = description;
             _useValidatingParser = useValidatingParser;
             _whitespaceHandling = whitespaceHandling;
             this.ignoreAttributeOrder = ignoreAttributeOrder;
+            this.IgnoreAttribute = ignoreAttribute;
+
         }
 
         public DiffConfiguration(string description,
                                  bool useValidatingParser,
                                  WhitespaceHandling whitespaceHandling)
             : this(description, useValidatingParser, whitespaceHandling,
-                   DEFAULT_IGNORE_ATTRIBUTE_ORDER)
+                   DEFAULT_IGNORE_ATTRIBUTE_ORDER,DEFAULT_IGNORE_ATTRIBUTE)
         {
         }
 
@@ -88,5 +92,7 @@ namespace XmlUnit.Xunit
         {
             get { return ignoreAttributeOrder; }
         }
+
+        public bool IgnoreAttribute { get; set; }
     }
 }
